@@ -1,6 +1,11 @@
 <!DOCTYPE=html>
+<script type="text/javascript" src="scripts/game.js"></script>
+<script type="text/javascript" src="scripts/jquery-2.0.3.min.js"></script>
 <div data-bb-type="screen" data-bb-effect="fade">
 	<div data-bb-type="title" id="divTitle" data-bb-caption="Testing" data-bb-back-caption="Back"></div>
-	<div data-bb-type="button">New Game</div>
-	<div data-bb-type="button">Load Game</div>
+	<canvas id="canvas" width="1000" height="600" style="border:1px solid #000000;"></canvas>
+		<button onclick="processAnswer()";>Enter</button>
+		<form>
+			Enter Answer Here: <input type="text" id="userAnswer" name="answer">
+		</form>		
 </div>
