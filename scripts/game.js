@@ -1,20 +1,33 @@
 			var c;
 			var ctx;
+			var cStatic;
+			var ctxStatic;
 			var score;
 			var answer;
+			var x=20;
+			var y=0;
+			var intervalId;
+        		var customer = new Image();
+        		customer.src = "images/redcircle.png";
+        		var table = new Image();
+        		table.src= "images/KEY_Table_sprite.png";
 			
 			$(function(){
-				c=document.getElementById("canvas");
-				ctx=c.getContext("2d");
-				score=0;
+				c=document.getElementById("myCanvas");
+				ctx = c.getContext("2d");
+				cStatic = document.getElementById("staticCanvas");
+				ctxStatic = cStatic.getContext("2d");
+				score = 0;
+				ctxStatic.font = "30px Arial";
+				ctxStatic.fillText("Score: " + score, 20, 20);
 				ctx.font="30px Arial";
-				paint();
+				move1();
+				
 			});
-			
-			function paint(){
-				ctx.clearRect(0,0,c.width,c.height);
-				ctx.fillText("Score: "+score,10,50);
-				generateQuestion(100,100);
+
+			function updateScore() {
+			    ctxStatic.clearRect(10, 10, 200, 40);
+			    ctxStatic.fillText("Score: " + score, 20, 20);
 			}
 			
 			function getRandomQuestion(){
@@ -53,9 +66,63 @@
 				if(parseFloat(userAnswer).toFixed(2)==parseFloat(answerString).toFixed(2)){
 					score+=1;
 				}
-				paint();
+				reset();
 			}
 			
 			function generateQuestion(x,y){
 				ctx.fillText(getRandomQuestion(),x,y);
 			}
+			
+			function newCustomer()
+        		{
+                		ctx.drawImage(customer, x, y, 50, 50);
+                		var t=setTimeout(function(){move1()}, 1500);
+                
+        		}
+
+			 function move1()
+        		{
+               			intervalId=setInterval(moveSide, 10);
+                		function moveSide()
+                		{
+                        		x+=1;
+                        		ctx.clearRect(0,0, c.width, c.height);
+                        		ctx.drawImage(customer, x, y, 50, 50);
+                        		ctx.drawImage(table, 200 ,200, 100, 50);
+                        		if(x==150)
+                        		{
+                                		clearInterval(intervalId);
+                                		move2();
+                        		}
+                		}
+        		}
+        
+        		function move2()
+        		{
+                		intervalId=setInterval(moveDown,10);
+                
+                		function moveDown()
+                		{
+                        		y+=1;
+                        		ctx.clearRect(0,0, c.width, c.height);
+                        		ctx.drawImage(customer, x, y, 50, 50);
+                        		ctx.drawImage(table, 200 ,200, 100, 50);
+                        		if(y==200)
+                        		{
+                                		clearInterval(intervalId);
+						generateQuestion(100,100);
+                        		}
+                		}
+        		}
+			
+			function reset()
+        		{
+                		x=20;
+                		y=0;
+                		ctx.clearRect(0,0, c.width, c.height);
+                		ctx.drawImage(table, 200, 200, 100, 50);
+                		updateScore();
+                		var rand= Math.floor(Math.random()*3+1);
+                		var t= setTimeout(function(){newCustomer()}, rand*1000);
+        		}
+

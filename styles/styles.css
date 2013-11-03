@@ -1,0 +1,27 @@
+#myCanvas{ 
+    border:1px solid #000000;
+    position:absolute;
+    z-index:0;
+}
+#staticCanvas {
+    position:absolute;
+    opacity:0;
+    z-index:1;
+}
+
+#bg{
+    position:absolute;
+    z-index:-1;
+}
+button {
+    position:absolute;
+    z-index:2;
+    left: 400px;
+    top: 85px;
+}
+form {
+    position: absolute;
+    z-index: 2;
+    left: 210px;
+    top:85px;
+}
