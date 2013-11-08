@@ -7,20 +7,89 @@
     position:absolute;
     z-index:1;
 }
-
 #bg{
-    position:absolute;
-    z-index:-1;
+	position: absolute;
+	background-image:url('../images/background1.png'),url('../images/tiles.png');
+	z-index:-1;
+}
+#questionDisplay{
+	position: absolute;
+	left: 606px;
+	height: 75px;
+	width: 405px;
+	font-size: 30pt;
+	border: 2px solid #a1a1a1;
+	border-radius: 5px;
+}
+
+#b7{
+	position: absolute;
+	left: 605px;
+	top: 90px;
+}
+#b8{
+	position: absolute;
+	left: 742px;
+	top: 90px;
+}
+#b9{
+	position: absolute;
+	left: 880px;
+	top: 90px;
+}
+#b4{
+	position: absolute;
+	left: 605px;
+	top: 216px;
+}
+#b5{
+	position: absolute;
+	left: 742px;
+	top: 216px;
+}
+#b6{
+	position: absolute;
+	left: 880px;
+	top: 216px;
+}
+#b1{
+	position: absolute;
+	left: 605px;
+	top: 342px;
+}
+#b2{
+	position: absolute;
+	left: 742px;
+	top: 342px;
+}
+#b3{
+	position: absolute;
+	left: 880px;
+	top: 342px;
+}
+#b0{
+	position: absolute;
+	left: 605px;
+	top: 467px;
+}
+#enter{
+	position: absolute;
+	left: 810px;
+	top: 467px;
+}
+#clear{
+	position: absolute;
+	left: 965px;
+	top: 8px;
+	width: 50px;
+	height:81px;
 }
 button {
-    position:absolute;
-    z-index:2;
-    left: 400px;
-    top: 85px;
+	width: 135px;
+	height: 125px;
+    z-index:1;
 }
-form {
-    position: absolute;
-    z-index: 2;
-    left: 210px;
-    top:85px;
+#enter,#b0{
+	width: 205px;
 }
+
