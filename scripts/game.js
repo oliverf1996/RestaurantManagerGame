@@ -7,11 +7,14 @@
 			var bg;
 			var ctxbg;
 
-			var score=0;
+			var score = 0;
+
+			var question;
 			var answer;
 			var userAnswer;
+
 			var x=-50;
-			var y=45;
+			var y=35;
 			var intervalId;
 			var counter=0;
 			var numDay=1;
@@ -49,7 +52,6 @@
 			}
 			
 			function getRandomQuestion(){
-				var question;
 				var operation;
 				var firstInteger;
 				var secondInteger;
@@ -63,19 +65,25 @@
 					case 0: operation="+";
 							answer=firstInteger+secondInteger;
 					break;
-					case 1: operation="-";
+				    case 1: operation = "-";
+				            var temp = firstInteger;
+				            if (firstInteger < secondInteger) {
+				                firstInteger = secondInteger;
+				                secondInteger = temp;
+				            }
 							answer=firstInteger-secondInteger;
 					break;
 					case 2: operation="*";
 							answer=firstInteger*secondInteger;
 					break;
 					case 3: operation="/";
-							answer=firstInteger/secondInteger;
+					        answer = firstInteger;
+					        firstInteger*=secondInteger;
 					break;
 				}
 				
-				question=""+firstInteger+operation+secondInteger+"=";	
-				return question;	
+				question = "  " + firstInteger + operation + secondInteger + "=";
+				return question;
 			}
 			
 			function restart(){
@@ -86,7 +94,8 @@
 			}
 			
 			function processAnswer(){
-
+			    setButtonsDisabled(true);
+			    userAnswer = document.getElementById("questionDisplay").value.substring(question.length);
 				var answerString=answer+"";
 				if(parseFloat(userAnswer).toFixed(2)==parseFloat(answerString).toFixed(2)){
 					score+=1;
@@ -103,10 +112,20 @@
 				reset();
 			}
 			
-			function generateQuestion(x,y){
-				ctxStatic.fillText(getRandomQuestion(),x,y);
+			function generateQuestion(){
+			    document.getElementById("questionDisplay").value = getRandomQuestion();
+			    setButtonsDisabled(false);
+			}
+            
+			function enterDigit(n) {
+			    if (document.getElementById("questionDisplay").value.length < 15) {
+			        document.getElementById("questionDisplay").value = document.getElementById("questionDisplay").value + "" + n;
+			    }
 			}
 			
+			function clearDisplay() {
+			    document.getElementById("questionDisplay").value = question;
+			}
 			function newCustomer()
         		{
                 		ctx.drawImage(customer, x, y, 50, 50);
@@ -142,18 +161,33 @@
                         		if(y==200)
                         		{
                                 		clearInterval(intervalId);
-						generateQuestion(100,100);
+						generateQuestion();
                         		}
                 		}
         		}
 			
 			function reset()
-        		{
-                		x=-50;
-                		y=45;
-                		ctx.clearRect(0,0, c.width, c.height);
-                		update();
-                		var rand= Math.floor(Math.random()*3+1);
-                		var t= setTimeout(function(){newCustomer()}, rand*1000);
-        		}
+        	{
+                	x=-50;
+                	y = 35;
+                	document.getElementById("questionDisplay").value = "";
+                	ctx.clearRect(0,0, c.width, c.height);
+                	update();
+                	var rand= Math.floor(Math.random()*3+1);
+                	var t= setTimeout(function(){newCustomer()}, rand*1000);
+			}
+			function setButtonsDisabled(isDisabled){
+			    document.getElementById("b0").disabled = isDisabled;
+			    document.getElementById("b1").disabled = isDisabled;
+			    document.getElementById("b2").disabled = isDisabled;
+			    document.getElementById("b3").disabled = isDisabled;
+			    document.getElementById("b4").disabled = isDisabled;
+			    document.getElementById("b5").disabled = isDisabled;
+			    document.getElementById("b6").disabled = isDisabled;
+			    document.getElementById("b7").disabled = isDisabled;
+			    document.getElementById("b8").disabled = isDisabled;
+			    document.getElementById("b9").disabled = isDisabled;
+			    document.getElementById("enter").disabled = isDisabled;
+			    document.getElementById("clear").disabled = isDisabled;
+			}
 
