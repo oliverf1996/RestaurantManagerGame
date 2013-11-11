@@ -15,6 +15,10 @@
 
 			var x=-50;
 			var y=35;
+			var x2=130;
+			var y2=230;
+			var x3=200;
+			var y3=510;
 			var intervalId;
 			var counter=0;
 			var numDay=1;
@@ -23,6 +27,10 @@
         	table.src= "images/KEY_Table_sprite.png";        	
 			var customer = new Image();
         	customer.src = "images/redcircle.png";
+			var waiter = new Image();
+			waiter.src= "images/bluecircle.png";
+			var chef = new Image();
+			chef.src="images/whitecircle.png";
 			
 			$(function(){
 				bg=document.getElementById("bg");
@@ -41,7 +49,8 @@
 				ctxStatic.fillText("Score: " + score, 20, 30);
 				ctxStatic.fillText("Day " + numDay, 20, 61);
 				ctx.font="30px Arial";
-				move1();
+				newCustomer();
+				animateChef();
 				
 			});
 
@@ -49,6 +58,7 @@
 			    ctxStatic.clearRect(0, 0, 200, 80);
 			    ctxStatic.fillText("Score: " + score, 20, 30);
 				ctxStatic.fillText("Day " + numDay, 20, 61);
+				
 			}
 			
 			function getRandomQuestion(){
@@ -126,45 +136,170 @@
 			function clearDisplay() {
 			    document.getElementById("questionDisplay").value = question;
 			}
+			
 			function newCustomer()
         		{
-                		ctx.drawImage(customer, x, y, 50, 50);
-                		var t=setTimeout(function(){move1()}, 1500);
-                
+                		x+=1;
+						ctx.clearRect(0,0, c.width, c.height);
+						ctx.drawImage(customer, x, y, 50, 50);        
+						ctx.drawImage(waiter, x2, y2, 75, 75);	
+						ctx.drawImage(chef, x3,y3, 50, 50);						
+						intervalId=setTimeout(newCustomer,10);
+						
+						
+								
+						if(x==30)		
+						{        
+							clearInterval(intervalId);        
+							setTimeout(animateWaiter1,1000);        
+						}	       	
         		}
 
-			 function move1()
+					
+			function animateWaiter1()
+			{
+				part1();
+				function part1()
+				{
+					y2-=1;
+					ctx.clearRect(0,0, c.width, c.height);
+					ctx.drawImage(waiter, x2, y2, 75, 75);
+					ctx.drawImage(customer, x, y, 50, 50); 
+					ctx.drawImage(chef, x3,y3, 50, 50);
+					var test=setTimeout(part1,10);
+					if(y2==50)
+					{
+						clearInterval(test);
+						part2();
+					}
+				}
+				function part2()
+				{
+					x2-=1;
+					ctx.clearRect(0,0, c.width, c.height);
+					ctx.drawImage(waiter, x2, y2, 75, 75);
+					ctx.drawImage(customer, x, y, 50, 50); 
+					ctx.drawImage(chef, x3,y3, 50, 50);
+					var test=setTimeout(part2,10);
+					if(x2==30)
+					{
+						clearInterval(test);
+						animateCustomer1();
+						animateWaiter2();
+					}
+				
+				}
+			}
+			function animateWaiter2()
+			{
+				part1();
+				function part1()
+				{
+					x2+=1;
+					ctx.clearRect(0,0, c.width, c.height);
+					ctx.drawImage(waiter, x2, y2, 75, 75);
+					ctx.drawImage(customer, x, y, 50, 50);
+					ctx.drawImage(chef, x3,y3, 50, 50);
+					
+					var test=setTimeout(part1,10);
+					if(x2==130)
+					{
+						clearInterval(test);
+						part2();
+					}
+				}
+				function part2()
+				{
+					y2+=1;
+					ctx.clearRect(0,0, c.width, c.height);
+					ctx.drawImage(waiter, x2, y2, 75, 75);
+					ctx.drawImage(customer, x, y, 50, 50); 
+					ctx.drawImage(chef, x3,y3, 50, 50);
+					var test=setTimeout(part2,10);
+					if(y2==230)
+					{
+						clearInterval(test);
+					}
+				}
+			}
+			
+			function animateCustomer1()
         		{
-               			intervalId=setInterval(moveSide, 10);
-                		function moveSide()
-                		{
-                        		x+=1;
-                        		ctx.clearRect(0,0, c.width, c.height);
-                        		ctx.drawImage(customer, x, y, 50, 50);
-                        		if(x==150)
-                        		{
-                                		clearInterval(intervalId);
-                                		move2();
-                        		}
-                		}
+						part1();
+						function part1()
+						{
+							x+=1;
+							ctx.clearRect(0,0, c.width, c.height);
+							ctx.drawImage(customer, x, y, 50, 50);
+							ctx.drawImage(waiter, x2, y2, 75, 75);
+							ctx.drawImage(chef, x3,y3, 50, 50);
+							intervalId=setTimeout(part1,10);
+							
+							if(x==150)
+							{
+								clearInterval(intervalId);
+								part2();
+							}
+						}
+						function part2()
+						{
+							y+=1;
+							ctx.clearRect(0,0, c.width, c.height);
+							ctx.drawImage(customer, x, y, 50, 50);
+							ctx.drawImage(waiter, x2, y2, 75, 75);
+							ctx.drawImage(chef, x3,y3, 50, 50);
+							intervalId=setTimeout(part2,10);
+							
+							if(y==200)
+							{
+								clearInterval(intervalId);
+								generateQuestion();
+							}
+						}
         		}
-        
-        		function move2()
-        		{
-                		intervalId=setInterval(moveDown,10);
-                
-                		function moveDown()
-                		{
-                        		y+=1;
-                        		ctx.clearRect(0,0, c.width, c.height);
-                        		ctx.drawImage(customer, x, y, 50, 50);
-                        		if(y==200)
-                        		{
-                                		clearInterval(intervalId);
-						generateQuestion();
-                        		}
-                		}
-        		}
+			
+			function animateChef()
+			{
+				
+				part1();
+				function part1()
+				{
+					x3+=1;
+					ctx.clearRect(0,0, c.width, c.height);
+					ctx.drawImage(customer, x, y, 50, 50);
+					ctx.drawImage(waiter, x2, y2, 75, 75);
+					ctx.drawImage(chef, x3,y3, 50, 50);
+					
+					var test=setTimeout(part1, 30);
+					
+					if (x3==300)
+					{
+						clearInterval(test);
+						setTimeout(part2, 2000);
+					}
+				}
+				
+				function part2()
+				{
+					x3-=1;
+					ctx.clearRect(0,0, c.width, c.height);
+					ctx.drawImage(customer, x, y, 50, 50);
+					ctx.drawImage(waiter, x2, y2, 75, 75);
+					ctx.drawImage(chef, x3,y3, 50, 50);
+					
+					var test=setTimeout(part2, 30);
+					
+					if (x3==200)
+					{
+						clearInterval(test);
+						setTimeout(part1,2000);
+					}
+				
+				}
+			
+			}
+        		
+				
 			
 			function reset()
         	{
@@ -173,6 +308,8 @@
                 	document.getElementById("questionDisplay").value = "";
                 	ctx.clearRect(0,0, c.width, c.height);
                 	update();
+					ctx.drawImage(waiter, x2, y2, 75, 75);
+					ctx.drawImage(chef, x3,y3, 50, 50);
                 	var rand= Math.floor(Math.random()*3+1);
                 	var t= setTimeout(function(){newCustomer()}, rand*1000);
 			}
