@@ -92,8 +92,8 @@
 				var secondInteger;
 				var operationSelector;
 				
-				firstInteger=Math.floor((Math.random()*100)+1);
-				secondInteger=Math.floor((Math.random()*100)+1);
+				firstInteger=Math.floor((Math.random()*12)+1);
+				secondInteger=Math.floor((Math.random()*12)+1);
 				
 				operatorSelector=Math.floor((Math.random()*4));
 				switch(operatorSelector){				
