@@ -14,9 +14,8 @@
 			var userAnswer;
 
 			var x=-50;
-			var y=35;
-			var x2=130;
-			var y2=230;
+			var y=34;
+	
 			var x3=200;
 			var y3=510;
 			
@@ -106,7 +105,7 @@
 			
 			function newCustomer()
         		{
-                		x+=1;
+                		x+=2;
 						ctx.clearRect(0,0, c.width, c.height);
 						ctx.drawImage(customer, x, y, 50, 50);        
 						
@@ -127,7 +126,7 @@
 						part1();
 						function part1()
 						{
-							x+=1;
+							x+=2;
 							ctx.clearRect(0,0, c.width, c.height);
 							ctx.drawImage(customer, x, y, 50, 50);
 							
@@ -142,7 +141,7 @@
 						}
 						function part2()
 						{
-							y+=1;
+							y+=2;
 							ctx.clearRect(0,0, c.width, c.height);
 							ctx.drawImage(customer, x, y, 50, 50);
 							
@@ -183,7 +182,8 @@
 					x3-=1;
 					ctx.clearRect(0,0, c.width, c.height);
 					ctx.drawImage(customer, x, y, 50, 50);
-					ctx.drawImage(waiter, x2, y2, 75, 75);
+					
+					
 					ctx.drawImage(chef, x3,y3, 50, 50);
 					
 					var test=setTimeout(part2, 30);
