@@ -207,7 +207,7 @@
                 	document.getElementById("questionDisplay").value = "";
                 	ctx.clearRect(0,0, c.width, c.height);
                 	update();
-					ctx.drawImage(waiter, x2, y2, 75, 75);
+					
 					ctx.drawImage(chef, x3,y3, 50, 50);
                 	var rand= Math.floor(Math.random()*3+1);
                 	var t= setTimeout(function(){newCustomer()}, rand*1000);
