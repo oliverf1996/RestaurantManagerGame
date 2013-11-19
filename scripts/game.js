@@ -203,7 +203,7 @@
 			function reset()
         	{
                 	x=-50;
-                	y = 35;
+                	y = 34;
                 	document.getElementById("questionDisplay").value = "";
                 	ctx.clearRect(0,0, c.width, c.height);
                 	update();
