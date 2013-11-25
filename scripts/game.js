@@ -20,7 +20,7 @@
 			var x=-50;
 			var y=34;
 	                
-	                var r;
+	        var r;
 			var x3=200;
 			var y3=510;
 			
@@ -134,44 +134,29 @@
 			}
 			function timerStop(id)
 			{
-				clearInterval(r);
-				
+				clearInterval(r);				
 				ctxStatic.clearRect(customers[id].x-20,customers[id].y-25, 130, 20);
 			
 			}
 			function updateClock()
 			{
+			    ctxStatic.clearRect(450, 0, 200, 80);
+			    ctxStatic.fillStyle = "black";
 				if(totalTime==0)
 				{
-					ctxStatic.clearRect(450, 0, 200, 80);
-					
-					ctxStatic.fillText(timeFormat(totalTime), 460, 60);
-
 					numDay+=1;
 					dayInProgress=false;
 					showUpgrades();
-				}else{
-					ctxStatic.clearRect(450, 0, 200, 80);
-					ctxStatic.fillText(timeFormat(totalTime), 460, 60);
-					totalTime-=1;
-					clockId=setTimeout(updateClock,1000);
-
-					alert("Day " + numDay+" has come to an end!");
-					numDay+=1;
-					totalTime=60;
-					update();
-
+				} else {
+				    ctxStatic.fillText(timeFormat(totalTime), 460, 60);
+				    totalTime -= 1;
+				    clockId = setTimeout(updateClock, 1000);
 				}
-				ctxStatic.clearRect(450, 0, 200, 80);
-				ctxStatic.fillStyle="black";
-				ctxStatic.fillText(timeFormat(totalTime), 460, 60);
-				totalTime-=1;
-				clockId=setTimeout(updateClock,1000);
-				
 			}
 
 			function showUpgrades(){
-				//stop animations
+			    //stop animations
+			    timerStop(1);
 				setButtonsDisabled(true);
 				ctxStatic.clearRect(0, 0, 590, 580);
 				var upgradeScreen= new Image();
@@ -246,34 +231,39 @@
 			}
 			
 		function newCustomer(id)
-        		{
-                		customers[id].x+=2;
-						ctx.clearRect(0,0, c.width, c.height);
-						ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);        
+		{
+		    if (dayInProgress) {
+		        customers[id].x += 2;
+		        ctx.clearRect(0, 0, c.width, c.height);
+		        ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
 
-						ctx.drawImage(chef, x3,y3, 50, 50);						
-						customers[id].timer=setTimeout(function(){newCustomer(id)},10);
+		        ctx.drawImage(chef, x3, y3, 50, 50);
+		        customers[id].timer = setTimeout(function () { newCustomer(id) }, 10);
+
+		        if (customers[id].x == 30) {
+		            clearInterval(customers[id].timer);
+		            animateCustomer1(id);
+		        }
+		    }
 						
-						if(customers[id].x==30)		
-						{        
-							clearInterval(customers[id].timer);        
-							animateCustomer1(id);       
-						}	 
-						
-        		}
+        }
 		function animateCustomer1(id)
         		{
 						part1(id);
 						function part1(id)
 						{
-							customers[id].x+=2;
-							ctx.clearRect(0,0, c.width, c.height);
-							ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
 							
-							ctx.drawImage(chef, x3,y3, 50, 50);
-							customers[id].timer=setTimeout(function(){part1(id)},10);
+						    if (dayInProgress) {
+						        customers[id].x += 2;
+						        ctx.clearRect(0, 0, c.width, c.height);
+						        ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
+						        ctx.drawImage(chef, x3, y3, 50, 50);
+							    customers[id].timer = setTimeout(function () { part1(id) }, 10);
+							} else {
+							    ctx.clearRect(0, 0, c.width, c.height);
+							}
 							
-							if(customers[id].x==150)
+							if(customers[id].x==150&&dayInProgress)
 							{
 								clearInterval(customers[id].timer);
 								part2(id);
@@ -281,19 +271,22 @@
 						}
 						function part2(id)
 						{
-							customers[id].y+=2;
-							ctx.clearRect(0,0, c.width, c.height);
-							ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
-							
-							ctx.drawImage(chef, x3,y3, 50, 50);
-							customers[id].timer=setTimeout(function(){part2(id)},10);
-							
-							if(customers[id].y==200)
-							{
-								clearInterval(customers[id].timer);
-								generateQuestion();
-								timerStart(15, id);
-							}
+						    if (dayInProgress) {
+						        customers[id].y += 2;
+						        ctx.clearRect(0, 0, c.width, c.height);
+						        ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
+
+						        ctx.drawImage(chef, x3, y3, 50, 50);
+						        customers[id].timer = setTimeout(function () { part2(id) }, 10);
+
+						        if (customers[id].y == 200) {
+						            clearInterval(customers[id].timer);
+						            generateQuestion();
+						            timerStart(15, id);
+						        }
+						    } else {
+						        ctx.clearRect(0, 0, c.width, c.height);
+						    }							
 						}
         		}
 			
@@ -304,44 +297,49 @@
 				part1();
 				function part1()
 				{
-					x3+=1;
-					ctx.clearRect(0,0, c.width, c.height);
-					ctx.drawImage(customers[1].img, customers[1].x, customers[1].y, 50, 50);
-					
-					ctx.drawImage(chef, x3,y3, 50, 50);
-					
-					var test=setTimeout(part1, 30);
-					
-					if (x3==300)
-					{
-						clearInterval(test);
-						setTimeout(part2, 2000);
-					}
+				    if (dayInProgress) {
+				        x3 += 1;
+				        ctx.clearRect(0, 0, c.width, c.height);
+				        ctx.drawImage(customers[1].img, customers[1].x, customers[1].y, 50, 50);
+
+				        ctx.drawImage(chef, x3, y3, 50, 50);
+
+				        var test = setTimeout(part1, 30);
+
+				        if (x3 == 300) {
+				            clearInterval(test);
+				            setTimeout(part2, 2000);
+				        }
+				    } else {
+				        ctx.clearRect(0, 0, c.width, c.height);
+				    }
 				}
 				
 				function part2()
 				{
-					x3-=1;
-					ctx.clearRect(0,0, c.width, c.height);
-					ctx.drawImage(customers[1].img, customers[1].x, customers[1].y, 50, 50);
-					
-					
-					ctx.drawImage(chef, x3,y3, 50, 50);
-					
-					var test=setTimeout(part2, 30);
-					
-					if (x3==200)
-					{
-						clearInterval(test);
-						setTimeout(part1,2000);
-					}
+				    if (dayInProgress) {
+				        x3 -= 1;
+				        ctx.clearRect(0, 0, c.width, c.height);
+				        ctx.drawImage(customers[1].img, customers[1].x, customers[1].y, 50, 50);
+
+				        ctx.drawImage(chef, x3, y3, 50, 50);
+
+				        var test = setTimeout(part2, 30);
+
+				        if (x3 == 200) {
+				            clearInterval(test);
+				            setTimeout(part1, 2000);
+				        }
+				    } else {
+				        ctx.clearRect(0, 0, c.width, c.height);
+				    }
 				
 				}
 			
 			}
         		
 				
-						function reset()
+			function reset()
         	{
 					
 					timerStop(1);
