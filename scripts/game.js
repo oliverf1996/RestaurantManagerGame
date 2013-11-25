@@ -25,6 +25,7 @@
 			
 			var counter=0;
 			var numDay=1;
+<<<<<<< HEAD
 			var totalTime=10;
 			var clockId;
 			
@@ -33,6 +34,11 @@
 			
 			var dayInProgress=true;
 			
+=======
+			var totalTime=60;
+			var clockId;
+			
+>>>>>>> efc7717dc1986df20c18bf9f7252c5539899f6b3
         	var table = new Image();
         	table.src= "images/KEY_Table_sprite.png";
 			
@@ -82,6 +88,7 @@
 					ctxStatic.clearRect(450, 0, 200, 80);
 					
 					ctxStatic.fillText(timeFormat(totalTime), 460, 60);
+<<<<<<< HEAD
 					numDay+=1;
 					dayInProgress=false;
 					showUpgrades();
@@ -90,9 +97,21 @@
 					ctxStatic.fillText(timeFormat(totalTime), 460, 60);
 					totalTime-=1;
 					clockId=setTimeout(updateClock,1000);
+=======
+					alert("Day " + numDay+" has come to an end!");
+					numDay+=1;
+					totalTime=60;
+					update();
+>>>>>>> efc7717dc1986df20c18bf9f7252c5539899f6b3
 				}
+				ctxStatic.clearRect(450, 0, 200, 80);
+				
+				ctxStatic.fillText(timeFormat(totalTime), 460, 60);
+				totalTime-=1;
+				clockId=setTimeout(updateClock,1000);
 				
 			}
+<<<<<<< HEAD
 			function showUpgrades(){
 				//stop animations
 				setButtonsDisabled(true);
@@ -157,6 +176,17 @@
 				update();
 			}
 			
+=======
+			
+			
+			function restart(){
+				counter=0;
+				numDay=1;
+				score=0;
+				update();
+			}
+			
+>>>>>>> efc7717dc1986df20c18bf9f7252c5539899f6b3
 			function enterDigit(n) {
 			    if (document.getElementById("questionDisplay").value.length < 15) {
 			        document.getElementById("questionDisplay").value = document.getElementById("questionDisplay").value + "" + n;
@@ -190,6 +220,7 @@
 						part1();
 						function part1()
 						{
+<<<<<<< HEAD
 							if(dayInProgress){
 								x+=2;
 								ctx.clearRect(0,0, c.width, c.height);
@@ -206,10 +237,24 @@
 								}
 							}else{ 
 								ctx.clearRect(0,0,c.width, c.height);
+=======
+							x+=2;
+							ctx.clearRect(0,0, c.width, c.height);
+							ctx.drawImage(customer, x, y, 50, 50);
+							
+							ctx.drawImage(chef, x3,y3, 50, 50);
+							var test=setTimeout(part1,10);
+							
+							if(x==150)
+							{
+								clearInterval(test);
+								part2();
+>>>>>>> efc7717dc1986df20c18bf9f7252c5539899f6b3
 							}
 						}
 						function part2()
 						{
+<<<<<<< HEAD
 							if(dayInProgress){
 								y+=2;
 								ctx.clearRect(0,0, c.width, c.height);
@@ -225,6 +270,19 @@
 								}
 							}else{
 								ctx.clearRect(0,0,c.width,c.height);
+=======
+							y+=2;
+							ctx.clearRect(0,0, c.width, c.height);
+							ctx.drawImage(customer, x, y, 50, 50);
+							
+							ctx.drawImage(chef, x3,y3, 50, 50);
+							var test=setTimeout(part2,10);
+							
+							if(y==200)
+							{
+								clearInterval(test);
+								generateQuestion();
+>>>>>>> efc7717dc1986df20c18bf9f7252c5539899f6b3
 							}
 						}
         		}
@@ -280,6 +338,10 @@
                 	document.getElementById("questionDisplay").value = "";
                 	ctx.clearRect(0,0, c.width, c.height);
                 	update();
+<<<<<<< HEAD
+=======
+					
+>>>>>>> efc7717dc1986df20c18bf9f7252c5539899f6b3
 					ctx.drawImage(chef, x3,y3, 50, 50);
                 	var rand= Math.floor(Math.random()*3+1);
                 	var t= setTimeout(function(){newCustomer()}, rand*1000);
