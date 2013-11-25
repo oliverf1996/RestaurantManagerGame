@@ -5,12 +5,16 @@
 }
 #staticCanvas {
     position:absolute;
-    z-index:1;
+    z-index:2;
 }
 #bg{
 	position: absolute;
 	background-image:url('../images/background1.png'),url('../images/tiles.png');
 	z-index:-1;
+}
+#upgradeScreen{
+	position: absolute;
+	z-index:1;
 }
 #questionDisplay{
 	position: absolute;
@@ -91,5 +95,31 @@ button {
 }
 #enter,#b0{
 	width: 205px;
+}
+#buyTable,#hireChef,#continue{
+	z-index:2;
+	position: absolute;
+	border-radius: 5px;
+}
+#buyTable{
+	width: 100px;
+	height: 25px;
+	left: 346px;
+	top: 265px;
+	visibility: hidden;
+}
+#hireChef{
+	width: 100px;
+	height: 25px;
+	left: 346px;
+	top: 352px;
+	visibility: hidden;
+}
+#continue{
+	width: 301px;
+	height: 25px;
+	left: 145px;
+	top: 400px;
+	visibility: hidden;
 }
 

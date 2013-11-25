@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <script type="text/javascript" src="scripts/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="scripts/useful.js"></script>
 <script type="text/javascript" src="scripts/game.js"></script>
 <html> 
     <head>
@@ -12,20 +13,24 @@
 		<canvas id="bg" width="590px" height="580px"></canvas>
 		<canvas id="myCanvas" width="590px" height="580px"></canvas>
         <canvas id="staticCanvas" width="590px" height="580px"></canvas>
+		<canvas id="upgradeScreen" width="590px" height="580px"></canvas>
 		<input readonly type="text" id="questionDisplay" placeholder=" Answer here."></input>
 		<div id="buttons">
-			<button id="b7" disabled onclick="enterDigit(7)";>7</button>
-			<button id="b8" disabled onclick="enterDigit(8)";>8</button>
-			<button id="b9" disabled onclick="enterDigit(9)";>9</button>
-			<button id="b4" disabled onclick="enterDigit(4)";>4</button>
-			<button id="b5" disabled onclick="enterDigit(5)";>5</button>
-			<button id="b6" disabled onclick="enterDigit(6)";>6</button>
-			<button id="b1" disabled onclick="enterDigit(1)";>1</button>
-			<button id="b2" disabled onclick="enterDigit(2)";>2</button>
-			<button id="b3" disabled onclick="enterDigit(3)";>3</button>
-			<button id="b0" disabled onclick="enterDigit(0)";>0</button>
-			<button id="enter" disabled onclick="processAnswer()";>Enter</button>
-			<button id="clear" disabled onclick="clearDisplay()";></button>
+			<button id="b7" disabled onClick="enterDigit(7)";>7</button>
+			<button id="b8" disabled onClick="enterDigit(8)";>8</button>
+			<button id="b9" disabled onClick="enterDigit(9)";>9</button>
+			<button id="b4" disabled onClick="enterDigit(4)";>4</button>
+			<button id="b5" disabled onClick="enterDigit(5)";>5</button>
+			<button id="b6" disabled onClick="enterDigit(6)";>6</button>
+			<button id="b1" disabled onClick="enterDigit(1)";>1</button>
+			<button id="b2" disabled onClick="enterDigit(2)";>2</button>
+			<button id="b3" disabled onClick="enterDigit(3)";>3</button>
+			<button id="b0" disabled onClick="enterDigit(0)";>0</button>
+			<button id="enter" disabled onClick="processAnswer()";>Enter</button>
+			<button id="clear" disabled onClick="clearDisplay()";></button>
+			<button id="buyTable" onClick="buyTable()";>Buy ($50)</button>
+			<button id="hireChef" onClick="hireChef()";>Hire ($100)</button>
+			<button id="continue" onClick="newDay()";>Begin Day 2</button>
 		</div>
 	</body> 
 </html>
