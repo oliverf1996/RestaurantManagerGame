@@ -50,22 +50,9 @@ function timeFormat(seconds)
 			    userAnswer = document.getElementById("questionDisplay").value.substring(question.length);
 				var answerString=answer+"";
 				if(parseFloat(userAnswer).toFixed(2)==parseFloat(answerString).toFixed(2)){
-<<<<<<< HEAD
-					money+=10;
-=======
 					score+=1;
->>>>>>> efc7717dc1986df20c18bf9f7252c5539899f6b3
 				}
-				/*
-				counter+=1;
-				if(counter%5==0){
-					if(numDay===2){
-						alert("GAME OVER");
-						restart();
-					}else{
-						numDay+=1;
-					}
-				}*/
+				
 				reset();
 			}
 			
