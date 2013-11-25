@@ -25,7 +25,7 @@
 			
 			var counter=0;
 			var numDay=1;
-<<<<<<< HEAD
+
 			var totalTime=10;
 			var clockId;
 			
@@ -33,12 +33,10 @@
 			var numChefs=1;
 			
 			var dayInProgress=true;
-			
-=======
+
 			var totalTime=60;
 			var clockId;
-			
->>>>>>> efc7717dc1986df20c18bf9f7252c5539899f6b3
+
         	var table = new Image();
         	table.src= "images/KEY_Table_sprite.png";
 			
@@ -88,7 +86,7 @@
 					ctxStatic.clearRect(450, 0, 200, 80);
 					
 					ctxStatic.fillText(timeFormat(totalTime), 460, 60);
-<<<<<<< HEAD
+
 					numDay+=1;
 					dayInProgress=false;
 					showUpgrades();
@@ -97,12 +95,12 @@
 					ctxStatic.fillText(timeFormat(totalTime), 460, 60);
 					totalTime-=1;
 					clockId=setTimeout(updateClock,1000);
-=======
+
 					alert("Day " + numDay+" has come to an end!");
 					numDay+=1;
 					totalTime=60;
 					update();
->>>>>>> efc7717dc1986df20c18bf9f7252c5539899f6b3
+
 				}
 				ctxStatic.clearRect(450, 0, 200, 80);
 				
@@ -111,7 +109,7 @@
 				clockId=setTimeout(updateClock,1000);
 				
 			}
-<<<<<<< HEAD
+
 			function showUpgrades(){
 				//stop animations
 				setButtonsDisabled(true);
