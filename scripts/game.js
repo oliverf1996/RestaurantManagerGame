@@ -12,13 +12,12 @@
 
 			var score = 0;
 			var money =0;
+			
+			var selectedId = 1;
 
-			var question;
-			var answer;
+			var questions=new Array();
+			var answers=new Array();
 			var userAnswer;
-
-			var x=-50;
-			var y=34;
 	                
 	        var r;
 			var x3=200;
@@ -46,8 +45,9 @@
 			{
 				this.id=id;
 				this.x=-50;
-				this.y=34;
+				this.y=30;
 				this.src= "images/redcircle.png";
+				this.src2="images/redCircleSelected.png";
 				this.img= new Image();
 				this.img.src=this.src;
 				this.timer;
@@ -81,6 +81,7 @@
 				ctxStatic.fillText("Day " + numDay, 20, 61);
 				ctx.font="30px Arial";
 				newCustomer(1);
+				generateRandomQuestion(1);
 				updateClock();
 				animateChef();
 				
@@ -168,6 +169,7 @@
 				document.getElementById("hireChef").style.visibility="visible";
 				document.getElementById("buyTable").style.visibility="visible";
 				checkMoney();
+				document.getElementById("continue").textContent="Begin Day "+numDay;
 				document.getElementById("continue").style.visibility="visible";
 			}
 			
@@ -227,19 +229,18 @@
 			}
 			
 			function clearDisplay() {
-			    document.getElementById("questionDisplay").value = question;
+			    document.getElementById("questionDisplay").value = questions[selectedId-1];
 			}
 			
 		function newCustomer(id)
 		{
 		    if (dayInProgress) {
+				generateRandomQuestion(id);
 		        customers[id].x += 2;
 		        ctx.clearRect(0, 0, c.width, c.height);
 		        ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
-
 		        ctx.drawImage(chef, x3, y3, 50, 50);
 		        customers[id].timer = setTimeout(function () { newCustomer(id) }, 10);
-
 		        if (customers[id].x == 30) {
 		            clearInterval(customers[id].timer);
 		            animateCustomer1(id);
@@ -281,7 +282,7 @@
 
 						        if (customers[id].y == 200) {
 						            clearInterval(customers[id].timer);
-						            generateQuestion();
+						            displayQuestion(id);
 						            timerStart(15, id);
 						        }
 						    } else {
@@ -337,18 +338,29 @@
 				}
 			
 			}
-        		
-				
+        	function handleClick(event){
+				var x=event.clientX-document.getElementById("myCanvas").getBoundingClientRect().left;
+				var y=event.clientY-document.getElementById("myCanvas").getBoundingClientRect().top;
+				selectCustomer(x,y);	
+			}				
+			function selectCustomer(x,y){
+				for (var i=1;i<=3;i++){
+					if(customers[i].x<=x&&x<=customers[i].x+50&&customers[i].y<=y&&y<=customers[i].y+50){
+						customers[i].img.src=customers[i].src2;
+						selectedId=i;
+						break;
+					}
+				}
+			}
 			function reset()
         	{
 					
 					timerStop(1);
                 	customer1.x=-50;
-                	customer1.y = 34;
+                	customer1.y = 30;
                 	document.getElementById("questionDisplay").value = "";
                 	ctx.clearRect(0,0, c.width, c.height);
-                	update();
-					
+                	update();			
 					ctx.drawImage(chef, x3,y3, 50, 50);
                 	var rand= Math.floor(Math.random()*3+1);
                 	var t= setTimeout(function(){newCustomer(1)}, rand*1000);

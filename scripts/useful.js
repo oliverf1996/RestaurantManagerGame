@@ -47,8 +47,8 @@ function timeFormat(seconds)
 			function processAnswer()
 			{
 			    setButtonsDisabled(true);
-			    userAnswer = document.getElementById("questionDisplay").value.substring(question.length);
-				var answerString=answer+"";
+			    userAnswer = document.getElementById("questionDisplay").value.substring(questions[selectedId-1].length);
+				var answerString=answers[selectedId-1]+"";
 				if(parseFloat(userAnswer).toFixed(2)==parseFloat(answerString).toFixed(2)){
 					money+=10;
 					score+=1;
@@ -66,13 +66,13 @@ function timeFormat(seconds)
 				reset();
 			}
 			
-			function generateQuestion()
+			function displayQuestion(id)
 			{
-			    document.getElementById("questionDisplay").value = getRandomQuestion();
+			    document.getElementById("questionDisplay").value = questions[id-1];
 			    setButtonsDisabled(false);
 			}
 			
-			function getRandomQuestion(){
+			function generateRandomQuestion(id){
 				var operation;
 				var firstInteger;
 				var secondInteger;
@@ -84,7 +84,7 @@ function timeFormat(seconds)
 				operatorSelector=Math.floor((Math.random()*4));
 				switch(operatorSelector){				
 					case 0: operation="+";
-							answer=firstInteger+secondInteger;
+							answers[id-1]=firstInteger+secondInteger;
 					break;
 				    case 1: operation = "-";
 				            var temp = firstInteger;
@@ -92,91 +92,17 @@ function timeFormat(seconds)
 				                firstInteger = secondInteger;
 				                secondInteger = temp;
 				            }
-							answer=firstInteger-secondInteger;
+							answers[id-1]=firstInteger-secondInteger;
 					break;
 					case 2: operation="*";
-							answer=firstInteger*secondInteger;
+							answers[id-1]=firstInteger*secondInteger;
 					break;
 					case 3: operation="/";
-					        answer = firstInteger;
+					        answers[id-1] = firstInteger;
 					        firstInteger*=secondInteger;
 					break;
 				}
 				
-				question = "  " + firstInteger + operation + secondInteger + "=";
-				return question;
+				questions[id-1]="  " + firstInteger + operation + secondInteger + "=";
 			}
-			
-			
-			/*	
-			function animateWaiter1()
-			{
-				part1();
-				function part1()
-				{
-					y2-=1;
-					ctx.clearRect(0,0, c.width, c.height);
-					ctx.drawImage(customer, x, y, 50, 50); 
-					ctx.drawImage(waiter, x2, y2, 75, 75);
-					ctx.drawImage(chef, x3,y3, 50, 50);
-					var test=setTimeout(part1,10);
-					if(y2==50)
-					{
-						clearInterval(test);
-						part2();
-					}
-				}
-				function part2()
-				{
-					x2-=1;
-					ctx.clearRect(0,0, c.width, c.height);
-					ctx.drawImage(customer, x, y, 50, 50); 
-					ctx.drawImage(waiter, x2, y2, 75, 75);
-					
-					ctx.drawImage(chef, x3,y3, 50, 50);
-					var test=setTimeout(part2,10);
-					if(x2==30)
-					{
-						clearInterval(test);
-						animateCustomer1();
-						animateWaiter2();
-					}
-				
-				}
-			}
-			
-			
-			function animateWaiter2()
-			{
-				part1();
-				function part1()
-				{
-					x2+=1;
-					ctx.clearRect(0,0, c.width, c.height);
-					ctx.drawImage(customer, x, y, 50, 50);
-					ctx.drawImage(waiter, x2, y2, 75, 75);
-					
-					ctx.drawImage(chef, x3,y3, 50, 50);
-					
-					var test=setTimeout(part1,10);
-					if(x2==130)
-					{
-						clearInterval(test);
-						part2();
-					}
-				}
-				function part2()
-				{
-					y2+=1;
-					ctx.clearRect(0,0, c.width, c.height);
-					ctx.drawImage(customer, x, y, 50, 50);
-					ctx.drawImage(waiter, x2, y2, 75, 75);
-					 
-					ctx.drawImage(chef, x3,y3, 50, 50);
-					var test=setTimeout(part2,10);
-					if(y2==230)
-					{
-						clearInterval(test);
-					}
-				}
-			}*/
+
