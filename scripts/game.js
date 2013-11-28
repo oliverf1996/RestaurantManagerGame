@@ -96,12 +96,18 @@
 				bg=document.getElementById("bg");
 				ctxbg = bg.getContext("2d");
 
-								ctxbg.drawImage(tables[1].img,tables[1].x, tables[1].y, 100,50);
-				tables[1].activated=true;
-				ctxbg.drawImage(tables[2].img,tables[2].x, tables[2].y, 100,50);
-				tables[2].activated=true;
-				ctxbg.drawImage(tables[3].img,tables[3].x, tables[3].y, 100,50);
-				tables[3].activated=true;
+				tables[1].img.onload = function(){
+					ctxbg.drawImage(tables[1].img,tables[1].x, tables[1].y, 100,50);
+					tables[1].activated=true;
+				}
+				tables[2].img.onload = function(){
+					ctxbg.drawImage(tables[2].img,tables[2].x, tables[2].y, 100,50);
+					tables[2].activated=true;
+				}
+				tables[3].img.onload = function(){
+					ctxbg.drawImage(tables[3].img,tables[3].x, tables[3].y, 100,50);
+					tables[3].activated=true;
+				}
 				roundedRect(ctxbg,455,35,100,30,5);
 	
 				c=document.getElementById("myCanvas");
@@ -117,6 +123,8 @@
 				newCustomer(1);
 				updateClock();
 				animateChef();
+				
+				setTimeout(function () { newCustomer(2) }, 3000);
 				
 			});
 			function chooseTable()
@@ -283,7 +291,7 @@
 				if (dayInProgress) {
 					generateRandomQuestion(id);
 					customers[id].x += 2;
-					ctx.clearRect(customers[id].x, customers[id].y, 52, 52);
+					ctx.clearRect(customers[id].x-2, customers[id].y-2, 53, 53);
 					ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
 
 					ctx.drawImage(chef, x3, y3, 50, 50);
@@ -301,7 +309,7 @@
 						
         }
 						
-        }
+        
 		function animateCustomer1(id, tableId)
         		{
 						
@@ -311,7 +319,7 @@
 							
 						    if (dayInProgress) {
 						        customers[id].x += 2;
-						        ctx.clearRect(customers[id].x, customers[id].y, 52, 52);
+						        ctx.clearRect(customers[id].x-2, customers[id].y-2, 53, 53);
 						        ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
 						        ctx.drawImage(chef, x3, y3, 50, 50);
 							    customers[id].timer = setTimeout(function () { part1(id) }, 10);
@@ -329,7 +337,7 @@
 						{
 						    if (dayInProgress) {
 						        customers[id].y += 2;
-						        ctx.clearRect(customers[id].x, customers[id].y, 52, 52);
+						        ctx.clearRect(customers[id].x-2, customers[id].y-2, 53, 53);
 						        ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
 
 						        ctx.drawImage(chef, x3, y3, 50, 50);
