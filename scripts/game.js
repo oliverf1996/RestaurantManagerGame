@@ -45,12 +45,23 @@
 			{
 				this.id=id;
 				this.x=-50;
-				this.y=30;
+				this.y=34;
 				this.src= "images/redcircle.png";
-				this.src2="images/redCircleSelected.png";
 				this.img= new Image();
 				this.img.src=this.src;
 				this.timer;
+				this.reset=function(ctx)
+				{
+					timerStop(this.id);
+					this.x=-50;
+					this.y=34;
+					update();
+					document.getElementById("questionDisplay").value = "";
+					ctx.clearRect(0,0, 1000,1000);
+					newCustomer(this.id);
+					
+				}
+				this.src2="images/redCircleSelected.png";
 			
 			}
 			var customer1 = new CustomerPrototype(1);
@@ -61,13 +72,36 @@
 			var chef = new Image();
 			chef.src="images/whitecircle.png";
 			
+			function TablePrototype (id, x ,y)
+		{
+			this.id=id;
+			this.src= "images/KEY_Table_sprite.png";
+			this.img=new Image();
+			this.img.src=this.src;
+			this.x=x;
+			this.y=y;	
+			
+			this.activated=false;
+		}
+		
+			var table1 = new TablePrototype(1, 100, 300);
+			var table2 = new TablePrototype(2, 400, 300);
+			var table3 = new TablePrototype(3, 250, 200);
+			
+			var tables= ["Empty Space", table1, table2, table3];
+			var freeTables= [1, 2, 3];
+			
+			
 			$(function(){
 				bg=document.getElementById("bg");
 				ctxbg = bg.getContext("2d");
 
-				table.onload = function(){
-					ctxbg.drawImage(table,200,200,100,50);
-				};
+								ctxbg.drawImage(tables[1].img,tables[1].x, tables[1].y, 100,50);
+				tables[1].activated=true;
+				ctxbg.drawImage(tables[2].img,tables[2].x, tables[2].y, 100,50);
+				tables[2].activated=true;
+				ctxbg.drawImage(tables[3].img,tables[3].x, tables[3].y, 100,50);
+				tables[3].activated=true;
 				roundedRect(ctxbg,455,35,100,30,5);
 	
 				c=document.getElementById("myCanvas");
@@ -81,11 +115,19 @@
 				ctxStatic.fillText("Day " + numDay, 20, 61);
 				ctx.font="30px Arial";
 				newCustomer(1);
-				generateRandomQuestion(1);
 				updateClock();
 				animateChef();
 				
 			});
+			function chooseTable()
+			{
+				//alert(freeTables);
+				var rand= Math.floor(Math.random()*freeTables.length); 
+				var choice = freeTables[rand];
+				
+				freeTables.splice(rand, 1);
+				return choice;
+			}
 
 			function update() {
 				ctxStatic.fillStyle="black";
@@ -232,31 +274,44 @@
 			    document.getElementById("questionDisplay").value = questions[selectedId-1];
 			}
 			
-		function newCustomer(id)
+	function newCustomer(id)
 		{
-		    if (dayInProgress) {
-				generateRandomQuestion(id);
-		        customers[id].x += 2;
-		        ctx.clearRect(0, 0, c.width, c.height);
-		        ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
-		        ctx.drawImage(chef, x3, y3, 50, 50);
-		        customers[id].timer = setTimeout(function () { newCustomer(id) }, 10);
-		        if (customers[id].x == 30) {
-		            clearInterval(customers[id].timer);
-		            animateCustomer1(id);
-		        }
-		    }
+			var rand= Math.floor(Math.random()*3+1);
+            setTimeout(function () { go(id) }, rand*1000);
+			function go(id)
+			{
+				if (dayInProgress) {
+					generateRandomQuestion(id);
+					customers[id].x += 2;
+					ctx.clearRect(customers[id].x, customers[id].y, 52, 52);
+					ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
+
+					ctx.drawImage(chef, x3, y3, 50, 50);
+					customers[id].timer = setTimeout(function () { go(id) }, 10);
+
+					if (customers[id].x == 30) {
+						clearInterval(customers[id].timer);
+						var tableId=chooseTable();
+							//alert(tableId);
+							//alert(freeTables);
+						animateCustomer1(id, tableId);
+					}
+				}
+			}
 						
         }
-		function animateCustomer1(id)
+						
+        }
+		function animateCustomer1(id, tableId)
         		{
+						
 						part1(id);
 						function part1(id)
 						{
 							
 						    if (dayInProgress) {
 						        customers[id].x += 2;
-						        ctx.clearRect(0, 0, c.width, c.height);
+						        ctx.clearRect(customers[id].x, customers[id].y, 52, 52);
 						        ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
 						        ctx.drawImage(chef, x3, y3, 50, 50);
 							    customers[id].timer = setTimeout(function () { part1(id) }, 10);
@@ -264,7 +319,7 @@
 							    ctx.clearRect(0, 0, c.width, c.height);
 							}
 							
-							if(customers[id].x==150&&dayInProgress)
+							if(customers[id].x==tables[tableId].x-50&&dayInProgress)
 							{
 								clearInterval(customers[id].timer);
 								part2(id);
@@ -274,15 +329,16 @@
 						{
 						    if (dayInProgress) {
 						        customers[id].y += 2;
-						        ctx.clearRect(0, 0, c.width, c.height);
+						        ctx.clearRect(customers[id].x, customers[id].y, 52, 52);
 						        ctx.drawImage(customers[id].img, customers[id].x, customers[id].y, 50, 50);
 
 						        ctx.drawImage(chef, x3, y3, 50, 50);
 						        customers[id].timer = setTimeout(function () { part2(id) }, 10);
 
-						        if (customers[id].y == 200) {
+						        if (customers[id].y == tables[tableId].y) {
 						            clearInterval(customers[id].timer);
 						            displayQuestion(id);
+									freeTables.push(tableId);
 						            timerStart(15, id);
 						        }
 						    } else {
@@ -292,7 +348,7 @@
         		}
 			
 			
-			function animateChef()
+		function animateChef()
 			{
 				
 				part1();
@@ -300,9 +356,8 @@
 				{
 				    if (dayInProgress) {
 				        x3 += 1;
-				        ctx.clearRect(0, 0, c.width, c.height);
-				        ctx.drawImage(customers[1].img, customers[1].x, customers[1].y, 50, 50);
-
+				        ctx.clearRect(200, 510, 300, 50);
+				       
 				        ctx.drawImage(chef, x3, y3, 50, 50);
 
 				        var test = setTimeout(part1, 30);
@@ -312,7 +367,7 @@
 				            setTimeout(part2, 2000);
 				        }
 				    } else {
-				        ctx.clearRect(0, 0, c.width, c.height);
+				         ctx.clearRect(200, 510, 300, 50);
 				    }
 				}
 				
@@ -320,8 +375,8 @@
 				{
 				    if (dayInProgress) {
 				        x3 -= 1;
-				        ctx.clearRect(0, 0, c.width, c.height);
-				        ctx.drawImage(customers[1].img, customers[1].x, customers[1].y, 50, 50);
+				       ctx.clearRect(200, 510, 300, 50);
+				      
 
 				        ctx.drawImage(chef, x3, y3, 50, 50);
 
@@ -332,7 +387,7 @@
 				            setTimeout(part1, 2000);
 				        }
 				    } else {
-				        ctx.clearRect(0, 0, c.width, c.height);
+				         ctx.clearRect(200, 510, 300, 50);
 				    }
 				
 				}
@@ -353,18 +408,9 @@
 				}
 			}
 			function reset()
-        	{
-					
-					timerStop(1);
-                	customer1.x=-50;
-                	customer1.y = 30;
-                	document.getElementById("questionDisplay").value = "";
-                	ctx.clearRect(0,0, c.width, c.height);
-                	update();			
-					ctx.drawImage(chef, x3,y3, 50, 50);
-                	var rand= Math.floor(Math.random()*3+1);
-                	var t= setTimeout(function(){newCustomer(1)}, rand*1000);
-			}
+        		{
+					customers[1].reset(ctx);
+        		}
 			function setButtonsDisabled(isDisabled){
 			    document.getElementById("b0").disabled = isDisabled;
 			    document.getElementById("b1").disabled = isDisabled;
