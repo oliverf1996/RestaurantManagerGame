@@ -15,6 +15,14 @@ function roundedRect(ctx,x,y,width,height,radius){
 			  ctx.fillStyle = "black";
 			 }
 			 
+function drawImage(ctx, customer)
+{
+	 ctx.clearRect(customer.x-2, customer.y-2, 53, 53);
+	 customer.img.onload = function() {
+		ctx.drawImage(customer.img, customer.x, customer.y, 50, 50);
+	 }
+}
+			 
 function timeFormat(seconds)
 {	
 	var minutes = Math.floor(seconds/60);
@@ -53,16 +61,7 @@ function timeFormat(seconds)
 					money+=10;
 					score+=1;
 				}
-				/*
-				counter+=1;
-				if(counter%5==0){
-					if(numDay===2){
-						alert("GAME OVER");
-						restart();
-					}else{
-						numDay+=1;
-					}
-				}*/
+				
 				reset();
 			}
 			
