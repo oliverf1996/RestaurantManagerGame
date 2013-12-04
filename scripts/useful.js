@@ -17,7 +17,10 @@ function roundedRect(ctx,x,y,width,height,radius){
 			 
 function drawImage(ctx, customer)
 {
+<<<<<<< HEAD
+=======
 	 ctx.clearRect(customer.x-2, customer.y-2, 53, 53);
+>>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 	 customer.img.onload = function() {
 		ctx.drawImage(customer.img, customer.x, customer.y, 50, 50);
 	 }
