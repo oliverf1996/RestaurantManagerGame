@@ -13,11 +13,7 @@ function CustomerPrototype (id)
 				this.reset=function(ctx)
 				{
 					timerStop(this.id);
-<<<<<<< HEAD
 					this.img.src = this.src;
-=======
-					
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 					ctx.clearRect(this.x-2, this.y-2, 53, 53);
 					this.x=-50;
 					this.y=34;
