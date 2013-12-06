@@ -13,11 +13,7 @@
 			var score = 0;
 			var money =50;
 			
-<<<<<<< HEAD
 			var selectedId = null;
-=======
-			var selectedId = 1;
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 
 			var questions=new Array();
 			var answers=new Array();
@@ -53,13 +49,6 @@
 			var table1 = new TablePrototype(1, 100, 300);
 			var table2 = new TablePrototype(2, 400, 300);
 			var table3 = new TablePrototype(3, 250, 200);
-<<<<<<< HEAD
-=======
-			
-			var tables= ["Empty Space", table1, table2, table3];
-			var freeTables= [1];
-			
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 			
 			var tables= ["Empty Space", table1, table2, table3];
 			var freeTables= [1];
@@ -68,17 +57,9 @@
 				bg=document.getElementById("bg");
 				ctxbg = bg.getContext("2d");
 
-<<<<<<< HEAD
 			    ctxbg.drawImage(tables[1].img, tables[1].x, tables[1].y, 100, 50);
 				tables[1].activated = true;
 
-=======
-				tables[1].img.onload = function(){
-					ctxbg.drawImage(tables[1].img,tables[1].x, tables[1].y, 100,50);
-					tables[1].activated=true;
-				}
-				
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 				roundedRect(ctxbg,455,35,100,30,5);
 	
 				c=document.getElementById("myCanvas");
@@ -95,20 +76,12 @@
 				updateClock();
 				animateChef();
 				
-<<<<<<< HEAD
 			};
-=======
-			});
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 			function chooseTable()
 			{
 				
 				var rand= Math.floor(Math.random()*freeTables.length); 
 				var choice = freeTables[rand];
-<<<<<<< HEAD
-=======
-				alert(choice);
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 				freeTables.splice(rand, 1);
 				return choice;
 			}
@@ -151,26 +124,17 @@
 					timerInterval[id]=setTimeout(function(){timerGo(timeLeft,id)}, 200);
 					if(timeLeft<=0)
 					{
-<<<<<<< HEAD
 					    customers[id].reset(ctx);
 					    if (id == selectedId) {
 					        selectNext();
 					    }
-=======
-						 customers[id].reset(ctx);
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 					}
 				}
 			}
 			function timerStop(id)
 			{
 				clearInterval(timerInterval[id]);				
-<<<<<<< HEAD
 				ctxStatic.clearRect(customers[id].x - 20, customers[id].y - 25, 130, 20);		
-=======
-				ctxStatic.clearRect(customers[id].x-20,customers[id].y-25, 130, 20);
-			
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 			}
 			function updateClock()
 			{
@@ -210,10 +174,7 @@
 			    timerStop(1);
 				timerStop(2);
 				timerStop(3);
-<<<<<<< HEAD
 				document.getElementById("questionDisplay").value = "";
-=======
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 				setButtonsDisabled(true);
 				ctxStatic.clearRect(0, 0, 590, 580);
 				customers[1].seated=false;
@@ -417,7 +378,6 @@
 						        customers[id].timer = setTimeout(function () { part2(id) }, 10);
 						        if (customers[id].y == tables[tableId].y) {
 						            clearInterval(customers[id].timer);
-<<<<<<< HEAD
 						            customers[id].seated = true;
 						            if (selectedId == null) {
 						                selectedId = id;
@@ -427,10 +387,6 @@
 									if(id==selectedId){
 						            	displayQuestion(selectedId);	
 									}
-=======
-									customers[id].seated=true;
-						            displayQuestion(selectedId);											
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 						            timerStart(15, id);
 						        }
 						    } else {
@@ -519,17 +475,11 @@
 				}
 			}
 			function reset()
-<<<<<<< HEAD
 			{
 			    customers[selectedId].reset(ctx);
 			    selectNext();
         	}
 			
-=======
-        		{
-					customers[selectedId].reset(ctx);
-        		}
->>>>>>> b7202e4fff6f597eb09167f6120b8b5eaf4cdf55
 			function setButtonsDisabled(isDisabled){
 			    document.getElementById("b0").disabled = isDisabled;
 			    document.getElementById("b1").disabled = isDisabled;
